@@ -2,70 +2,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #555;
-            padding: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        section {
-            background-color: white;
-            padding: 20px;
-            margin: 10px;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-
-        /* Media queries for responsiveness */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-            }
-
-            nav a {
-                padding: 10px 0;
-				border-bottom: 1px solid white;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <header>
-        <h1>BIC PC:Physical and chemical parameters for a given protein</h1>
+        <h1>BIC PC: Physical and Chemical Parameters for a Given Protein</h1>
     </header>
 
     <nav>
@@ -75,20 +16,16 @@
     </nav>
 
     <div class="container">
-        
-		
-		
-    <div class="Form_Container">
-        <p>Enter a protein sequence to analyze its properties</p>
-        <form id="proteinForm" action="Result.php" method="get">
-            <label for="sequence">Protein Sequence:</label>
-            <textarea id="sequence" name="sequence" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
+        <div class="Form_Container">
+            <p>Enter a protein sequence or upload a FASTA file to analyze its properties</p>
+            <form id="proteinForm" action="Result.php" method="post" enctype="multipart/form-data">
+                <label for="sequence">Protein Sequence:</label>
+                <textarea id="sequence" name="sequence" placeholder="Enter protein sequences here" rows="5"></textarea>
+                <label for="file">Or upload a FASTA file:</label>
+                <input type="file" id="file" name="file" accept=".fasta, .txt">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
-
-		
-    </div>
-
 </body>
 </html>
