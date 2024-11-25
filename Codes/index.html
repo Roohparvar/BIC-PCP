@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIC PC: Analyze Protein Properties</title>
+    <title>BIC-PCP: Analyze Protein Properties</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -92,7 +92,7 @@
 </head>
 <body>
     <header>
-        <h1>BIC PC: Physical and Chemical Parameters for a Given Protein</h1>
+        <h1>BIC PCP: Physical and Chemical Parameters for Given Protein Sequences</h1>
     </header>
 
     <nav>
@@ -103,10 +103,10 @@
 
     <div class="container">
         <div class="Form_Container">
-            <p><strong>Analyze the properties of your protein:</strong> Enter a protein sequence directly or upload a FASTA file to get started.</p>
+            <p>Enter protein sequences directly or upload a FASTA file to begin your analysis."</p>
             <form id="proteinForm" action="Result.php" method="post" enctype="multipart/form-data">
-                <label for="sequence">Protein Sequence:</label>
-                <textarea id="sequence" name="sequence" placeholder="Enter protein sequences here (e.g., 'MKTLLILAVAVL...')" rows="5"></textarea>
+                <label for="sequence">Protein Sequences in FASTA format:</label>
+                <textarea id="sequence" name="sequence" placeholder="Enter protein sequences here" rows="5"></textarea>
                 
                 <label for="file">Or upload a FASTA file:</label>
                 <input type="file" id="file" name="file" accept=".fasta, .txt">
@@ -116,8 +116,5 @@
         </div>
     </div>
 
-    <footer>
-        &copy; 2024 BioinfCamp. All rights reserved.
-    </footer>
 </body>
 </html>
