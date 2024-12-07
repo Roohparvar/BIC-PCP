@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-
         $aminoAcidWeights = [
             'A' => 89.09,  'R' => 174.20, 'N' => 132.12, 'D' => 133.10,
             'C' => 121.15, 'E' => 147.13, 'Q' => 146.15, 'G' => 75.07,
@@ -50,38 +49,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo "<h2>Processed Protein Sequences:</h2>";
         foreach ($proteinSequences as $proteinName => $sequence) {
-            $length = strlen($sequence);
 
-
+            // ......................................... Start part 1 molecular weight calculation
             $molecularWeight = 0.0;
             foreach (str_split($sequence) as $aminoAcid) {
                 if (isset($aminoAcidWeights[$aminoAcid])) {
                     $molecularWeight += $aminoAcidWeights[$aminoAcid];
                 }
             }
+            echo "<h3>$proteinName (Molecular Weight: " . number_format($molecularWeight, 2) . " g/mol)</h3>";
+            // ......................................... End part 1 molecular weight calculation
 
-            echo "<h3>$proteinName (Length: $length, Molecular Weight: " . number_format($molecularWeight, 2) . " g/mol)</h3>";
-            echo "<pre>$sequence</pre>";
+            // ......................................... Start part 2 protein length calculation
+            $length = strlen($sequence);
+            echo "<h3>Length: $length</h3>";
+            // ......................................... End part 2 protein length calculation
 
-
-            $aminoAcidCounts = count_chars($sequence, 1);
-
+            // ......................................... Start part 3 Amino Acid Composition
             echo "<h4>Amino Acid Composition:</h4>";
             echo "<table border='1' cellpadding='5' cellspacing='0'>";
             echo "<tr><th>Amino Acid</th><th>Count</th><th>Percentage</th></tr>";
+            $aminoAcidCounts = count_chars($sequence, 1);
 
             foreach ($aminoAcidCounts as $ascii => $count) {
                 $aminoAcid = chr($ascii);
                 $percentage = ($count / $length) * 100;
                 echo "<tr><td>$aminoAcid</td><td>$count</td><td>" . number_format($percentage, 2) . "%</td></tr>";
             }
-
             echo "</table><br>";
+            // ......................................... End part 3 Amino Acid Composition
 
-
+            // ......................................... Start part 4 charge calculations
             $charge = array();
-
-
             for ($pH = 0; $pH <= 14; $pH++) {
                 $charge[$pH] = 0;
 
@@ -107,8 +106,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $pI = $pH;
                 }
             }
-
             echo "<h4>Theoretical pI of $proteinName: " . number_format($pI, 2) . "</h4><br>";
+            // ......................................... End part 4 charge calculations
+
+            // ......................................... Start part 5 Count positively charged residues
+            $positive_residues = array("R", "K", "H");
+            $total_positives = 0;
+
+            for ($i = 0; $i < strlen($sequence); $i++) {
+                if (in_array($sequence[$i], $positive_residues)) {
+                    $total_positives++;
+                }
+            }
+
+            echo "<h4>Total number of positively charged residues: $total_positives</h4>";
+            // ......................................... End part 5 Count positively charged residues
         }
     } else {
         echo "<h2>No input provided!</h2>";
