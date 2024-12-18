@@ -121,6 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             echo "<h4>Total number of positively charged residues: $total_positives</h4>";
             // ......................................... End part 5 Count positively charged residues
+            
+            // Print separator for clarity
+             echo "<h4>_______________________________________________________________________________________</h4>";
         }
     } else {
         echo "<h2>No input provided!</h2>";
