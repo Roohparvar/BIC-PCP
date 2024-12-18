@@ -122,6 +122,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<h4>Total number of positively charged residues: $total_positives</h4>";
             // ......................................... End part 5 Count positively charged residues
             
+            // ......................................... Start part 6 Count negatively charged residues
+            $negative_residues = array("D", "E");
+
+            $total_negatives = 0;
+
+            for ($i = 0; $i < strlen($sequence); $i++) {
+                if (in_array($sequence[$i], $negative_residues)) {
+                    $total_negatives++;
+                }
+            }
+
+            echo "<h4>Total number of negatively charged residues: $total_negatives</h4>";
+// ......................................... End part 6 Count negatively charged residues
+
+            
             // Print separator for clarity
              echo "<h4>_______________________________________________________________________________________</h4>";
         }
