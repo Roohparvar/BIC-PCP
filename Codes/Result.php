@@ -32,25 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $aminoAcidWeights = [
-            'A' => 89.09,  'R' => 174.20, 'N' => 132.12, 'D' => 133.10,
-            'C' => 121.15, 'E' => 147.13, 'Q' => 146.15, 'G' => 75.07,
-            'H' => 155.16, 'I' => 131.17, 'L' => 131.17, 'K' => 146.19,
-            'M' => 149.21, 'F' => 165.19, 'P' => 115.13, 'S' => 105.09,
-            'T' => 119.12, 'W' => 204.23, 'Y' => 181.19, 'V' => 117.15
-        ];
-
-        $aminoAcids = array(
-            'D' => 3.8949375, 'E' => 4.2930625,
-            'H' => 5.8028125, 'C' => 7.75075,
-            'Y' => 9.4375625, 'K' => 10.4536875,
-            'R' => 12.0601875
-        );
-
         echo "<h2>Processed Protein Sequences:</h2>";
         foreach ($proteinSequences as $proteinName => $sequence) {
 
             // ......................................... Start part 1 molecular weight calculation
+            $aminoAcidWeights = [
+                'A' => 89.09,  'R' => 174.20, 'N' => 132.12, 'D' => 133.10,
+                'C' => 121.16, 'E' => 147.13, 'Q' => 146.15, 'G' => 75.07,
+                'H' => 155.16, 'I' => 131.17, 'L' => 131.17, 'K' => 146.19,
+                'M' => 149.21, 'F' => 165.19, 'P' => 115.13, 'S' => 105.09,
+                'T' => 119.12, 'W' => 204.23, 'Y' => 181.19, 'V' => 117.15
+            ];
+
             $molecularWeight = 0.0;
             foreach (str_split($sequence) as $aminoAcid) {
                 if (isset($aminoAcidWeights[$aminoAcid])) {
@@ -80,6 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // ......................................... End part 3 Amino Acid Composition
 
             // ......................................... Start part 4 charge calculations
+            $aminoAcids = array(
+                'D' => 3.8949375, 'E' => 4.2930625,
+                'H' => 5.8028125, 'C' => 7.75075,
+                'Y' => 9.4375625, 'K' => 10.4536875,
+                'R' => 12.0601875
+            );
+
             $charge = array();
             for ($pH = 0; $pH <= 14; $pH++) {
                 $charge[$pH] = 0;
