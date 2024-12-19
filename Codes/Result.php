@@ -176,6 +176,30 @@ echo "Oxygen: " . $oxygen_count . "<br>";
 echo "Sulfur: " . $sulfur_count . "<br>";
 // ......................................... End part 7 Total Atomic Composition
 
+// ......................................... Start part 8 Extinction Coefficient
+$C = substr_count($sequence, 'C');
+$Y = substr_count($sequence, 'Y');
+$W = substr_count($sequence, 'W');
+
+if ($C % 2 == 0) {
+    $C = $C / 2;
+} else {
+    $C = $C - 1;
+    $C = $C / 2;
+}
+
+$extinction_coefficient = ($C * 125) + ($Y * 1490) + ($W * 5500);
+
+if ($C == 0 && $Y == 0 && $W == 0) {
+    echo "As there are no Trp, Tyr, or Cys in the region considered, your protein should not be visible by UV spectrophotometry.";
+} else {
+    echo "The extinction coefficient of the protein sequence '$protein_sequence' is $extinction_coefficient M^-1 cm^-1.<br>";
+    $Absorb = $extinction_coefficient / $molecularWeight;
+    echo "The Absorb(Prot) of the protein is '$Absorb' assuming all pairs of Cys residues form cystines.";
+}
+// ......................................... End part 8 Extinction Coefficient
+
+
 
 
             
