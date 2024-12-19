@@ -134,7 +134,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             echo "<h4>Total number of negatively charged residues: $total_negatives</h4>";
-// ......................................... End part 6 Count negatively charged residues
+            // ......................................... End part 6 Count negatively charged residues
+            
+            // ......................................... Start part 7 Total Atomic Composition
+// Define arrays for each element with the number of atoms in each amino acid
+$carbon = array(3, 3, 4, 5, 9, 2, 6, 6, 6, 6, 5, 4, 5, 5, 6, 3, 4, 5, 11, 9);
+$hydrogen = array(7, 7, 7, 9, 11, 5, 9, 13, 14, 13, 11, 8, 9, 10, 14, 7, 9, 11, 12, 11);
+$nitrogen = array(1, 1, 1, 1, 1, 1, 3, 1, 2, 1, 1, 2, 1, 2, 4, 1, 1, 1, 2, 1);
+$oxygen = array(2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 3, 2, 3, 2, 3, 3, 2, 2, 3);
+$sulfur = array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+// Define an array of amino acids
+$amino_acids = array("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y");
+
+// Initialize the counters for each element
+$carbon_count = 0;
+$hydrogen_count = 0;
+$nitrogen_count = 0;
+$oxygen_count = 0;
+$sulfur_count = 0;
+
+// Loop through the protein sequence and add up the count of each element
+for ($i = 0; $i < strlen($sequence); $i++) {
+    $amino_acid = $sequence[$i];
+    $index = array_search($amino_acid, $amino_acids);
+    if ($index !== false) {
+        $carbon_count += $carbon[$index];
+        $hydrogen_count += $hydrogen[$index];
+        $nitrogen_count += $nitrogen[$index];
+        $oxygen_count += $oxygen[$index];
+        $sulfur_count += $sulfur[$index];
+    }
+}
+
+// Output the count of each element
+echo "<h4>Total Atomic Composition:</h4>";
+echo "Carbon: " . $carbon_count . "<br>";
+echo "Hydrogen: " . $hydrogen_count . "<br>";
+echo "Nitrogen: " . $nitrogen_count . "<br>";
+echo "Oxygen: " . $oxygen_count . "<br>";
+echo "Sulfur: " . $sulfur_count . "<br>";
+// ......................................... End part 7 Total Atomic Composition
+
+
 
             
             // Print separator for clarity
