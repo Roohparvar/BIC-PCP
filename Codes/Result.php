@@ -193,13 +193,126 @@ $extinction_coefficient = ($C * 125) + ($Y * 1490) + ($W * 5500);
 if ($C == 0 && $Y == 0 && $W == 0) {
     echo "As there are no Trp, Tyr, or Cys in the region considered, your protein should not be visible by UV spectrophotometry.";
 } else {
-    echo "The extinction coefficient of the protein sequence '$protein_sequence' is $extinction_coefficient M^-1 cm^-1.<br>";
+    echo "<br>The extinction coefficient of the protein sequence '$protein_sequence' is $extinction_coefficient M^-1 cm^-1.<br>";
     $Absorb = $extinction_coefficient / $molecularWeight;
     echo "The Absorb(Prot) of the protein is '$Absorb' assuming all pairs of Cys residues form cystines.";
 }
 // ......................................... End part 8 Extinction Coefficient
 
+// ......................................... Start part 9 Half-Life
 
+$half_life = array(
+    'AM' => '4.4h', 
+    'AY' => '>20h',
+    'AE' => '>10h',
+    'RM' => '1h', 
+    'RY' => '2min',
+    'RE' => '2min',
+    'NM' => '1.4h', 
+    'NY' => '3 min',
+    'NE' => '>10 h',
+    'DM' => '1.1h', 
+    'DY' => '3 min',
+    'DE' => '>10 h',
+    'CM' => '1.2h', 
+    'CY' => '>20 h',
+    'CE' => '>10 h',
+    'QM' => '0.8h', 
+    'QY' => '10 min',
+    'QE' => '>10 h',
+    'EM' => '1h', 
+    'EY' => '30 min',
+    'EE' => '>10 h',
+    'GM' => '30h', 
+    'GY' => '>20 h',
+    'GE' => '>10 h',
+    'HM' => '3.5h', 
+    'HY' => '10 min',
+    'HE' => '>10 h',
+    'IM' => '20 h', 
+    'IY' => '30 min',
+    'IE' => '>10 h',
+    'LM' => '5.5 h', 
+    'LY' => '3 min',
+    'LE' => '2 min',
+    'KM' => '1.3 h', 
+    'KY' => '3 min',
+    'KE' => '2 min',
+    'MM' => '30 h', 
+    'MY' => '>20 h',
+    'ME' => '>10 h',
+    'FM' => '1.1 h', 
+    'FY' => '3 min',
+    'FE' => '2 min',
+    'PM' => '>20 h', 
+    'PY' => '>20 h',
+    'PE' => '?',
+    'SM' => '1.9 h', 
+    'SY' => '>20 h',
+    'SE' => '>10h',
+    'TM' => '7.2 h', 
+    'TY' => '>20 h',
+    'TE' => '>10h',
+    'WM' => '2.8 h', 
+    'WY' => '3 min',
+    'WE' => '2 min',
+    'YM' => '2.8 h', 
+    'YY' => '10 min',
+    'YE' => '2 min',
+    'VM' => '100 h', 
+    'VY' => '>20 h',
+    'VE' => '>10 h'
+);
+
+$M = $sequence[0] . "M";
+$Y = $sequence[0] . "Y";
+$E = $sequence[0] . "E";
+
+echo "<br><br>The estimated half-life is:<br>";
+echo "'$half_life[$M]' (mammalian reticulocytes, in vitro)<br>";
+echo "'$half_life[$Y]' (yeast, in vivo)<br>";
+echo "'$half_life[$E]' (Escherichia coli, in vivo)<br>";
+// ......................................... End part 9 Half-Life
+
+// Start
+// ...............................part 10 instability index......................................
+
+$diwv = array(
+    'AA' =>  0.62,
+    'AR' => -2.53,
+    'AN' =>  0.50,
+    'AD' =>  3.64,
+    'AC' =>  1.07,
+    'AQ' =>  0.47,
+    'AE' =>  3.63,
+    'AG' =>  0.79,
+    'AH' => -0.64,
+    'AI' =>  1.80,
+    'AL' =>  1.53,
+    'AK' => -1.23,
+    'AM' =>  1.43,
+    'AF' =>  0.71,
+    'AP' =>  1.23,
+    'AS' =>  0.79,
+    'AT' =>  0.26,
+    'AW' =>  0.37,
+    'AY' =>  1.47,
+    'AV' =>  1.13
+);
+
+// Calculate the instability index
+$L = strlen($sequence);
+$ii = 0;
+for ($i = 0; $i < $L-1; $i++) {
+    $diwv_key = substr($seq, $i, 2);
+    if (isset($diwv[$diwv_key])) {
+        $ii += $diwv[$diwv_key];
+    }
+}
+$ii *= 10 / $L;
+
+echo "<br>Instability Index: " . $ii;
+// ENd
 
 
             
